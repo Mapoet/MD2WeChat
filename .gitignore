@@ -32,6 +32,7 @@ ENV/
 # IDE
 .vscode/
 .idea/
+.cursor/
 *.swp
 *.swo
 *~
@@ -50,7 +51,20 @@ htmlcov/
 # Output files
 *.html
 !examples/*.html
+test*.html
+analysis*_data7d*.json
+summary*_data7d*.md
+selected_*.json
+*.mhtml
+extract_articles/ai_images_content.json
 
+# Generated article pipeline artifacts
+source/
+extract_articles/_weekly_build/
+extract_articles/_weekly_pipeline_logs/
+extract_articles/_weekly_suggest_staging/
+extract_articles/
+oldarts/
 # Large files (exceed GitHub 100MB limit)
 *.zip
 

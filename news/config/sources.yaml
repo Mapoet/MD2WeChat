@@ -1,0 +1,114 @@
+# 卫星新闻信源配置
+# 支持类型: rss, api, scrape
+# 新增信源时在此文件添加，无需修改代码
+
+rss:
+  # 航天机构
+  nasa:
+    url: "https://www.nasa.gov/rss/dyn/breaking_news.rss"
+    enabled: true
+  esa:
+    url: "https://www.esa.int/rssfeed/Our_Activities"
+    enabled: true
+  # 航天媒体
+  space_news:
+    url: "https://spacenews.com/feed/"
+    enabled: true
+  space_com:
+    url: "https://www.space.com/feeds/all"
+    enabled: true
+  spaceflight_now:
+    url: "https://spaceflightnow.com/feed/"
+    enabled: true
+    description: "发射与任务新闻权威来源"
+  # GNSS 专业媒体
+  gps_world:
+    url: "https://www.gpsworld.com/feed/"
+    enabled: true
+  inside_gnss:
+    url: "https://insidegnss.com/feed/"
+    enabled: true
+  # 气象/卫星机构 RSS
+  noaa_rss:
+    url: "https://www.noaa.gov/rss.xml"
+    enabled: true
+    description: "NOAA 官方 RSS"
+  gsa_euspa:
+    url: "https://www.gsa.europa.eu/rss.xml"
+    # 注: gsa.europa.eu 重定向至 EUSPA，RSS 仍有效
+    enabled: true
+    description: "欧盟空间计划局 (Galileo/EGNOS)"
+
+api:
+  satellitemap:
+    url: "https://api.satellitemap.space/news"
+    enabled: true
+    headers:
+      X-API-Key: "development-key"
+    params:
+      limit: 50
+      hours: 24
+
+scrape:
+  # 气象卫星机构
+  noaa:
+    url: "https://www.noaa.gov/news"
+    base_url: "https://www.noaa.gov"
+    enabled: true
+    selectors:
+      - "article.news-item a"
+      - "div.news-list article a"
+      - "main a[href*='/news/']"
+    limit: 10
+  eumetsat:
+    url: "https://www.eumetsat.int/latest-news"
+    base_url: "https://www.eumetsat.int"
+    enabled: true
+    selectors:
+      - "article a[href*='eumetsat.int']"
+      - ".view-content a[href*='eumetsat.int']"
+      - "h3 a, h4 a"
+      - "a[href^='/']"
+    limit: 15
+    skip_keyword_filter: true  # 气象卫星权威源，全量收录
+  # GNSS 机构
+  igs:
+    url: "https://igs.org/news"
+    base_url: "https://igs.org"
+    enabled: true
+    selectors:
+      - "article a[href*='/news/']"
+      - ".news-item a"
+      - "main a[href*='igs.org/news']"
+      - "a[href^='/news/']"
+    limit: 10
+    skip_keyword_filter: true  # IGS 为 GNSS 权威源
+  gps_gov:
+    url: "https://www.gps.gov/news/"
+    base_url: "https://www.gps.gov"
+    enabled: true
+    selectors:
+      - "main a[href*='/news/']"
+      - "article a"
+      - ".news-list a"
+    limit: 10
+    skip_keyword_filter: true  # GPS 官方新闻
+  gsc_galileo:
+    url: "https://www.gsc-europa.eu/galileo/news"
+    base_url: "https://www.gsc-europa.eu"
+    enabled: true
+    selectors:
+      - "article a"
+      - ".news-item a"
+      - "a[href*='/news/']"
+    limit: 10
+    skip_keyword_filter: true  # Galileo 服务中心
+  # 航天机构
+  jaxa:
+    url: "https://global.jaxa.jp/news/"
+    base_url: "https://global.jaxa.jp"
+    enabled: true
+    selectors:
+      - "article a"
+      - ".news-list a"
+    limit: 10

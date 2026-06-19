@@ -1,0 +1,107 @@
+# 卫星新闻抓取项目配置示例
+
+# 抓取配置
+crawler:
+  target_url: "https://satellitemap.space/news"
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+  timeout: 30
+  retry_count: 3
+  retry_delay: 5
+  
+  # 抓取频率（秒）
+  fetch_interval: 3600  # 每小时一次
+  
+  # 数据保留天数
+  data_retention_days: 30
+
+# 分析配置
+analyzer:
+  # 新闻分类
+  categories:
+    - name: "launch"
+      keywords: ["launch", "发射", "rocket", "运载火箭"]
+    - name: "mission_update"
+      keywords: ["mission", "update", "status", "任务更新", "状态"]
+    - name: "technology"
+      keywords: ["technology", "tech", "innovation", "技术", "创新"]
+    - name: "policy"
+      keywords: ["policy", "regulation", "law", "政策", "法规"]
+    - name: "business"
+      keywords: ["business", "company", "funding", "商业", "融资"]
+  
+  # 重要性评分权重
+  importance_weights:
+    source_reliability: 0.3
+    timeliness: 0.25
+    impact_level: 0.25
+    content_completeness: 0.2
+
+# 生成配置
+generator:
+  # HTML输出配置
+  html:
+    template_dir: "../templates"
+    output_dir: "../output/html"
+    daily_filename: "daily_news_{date}.html"
+    detail_filename: "news_detail_{id}.html"
+    
+  # 飞书消息配置
+  feishu:
+    enabled: false
+    app_id: "YOUR_APP_ID"
+    app_secret: "YOUR_APP_SECRET"
+    receive_id: "YOUR_RECEIVE_ID"  # 用户或群聊ID
+    message_type: "interactive"  # interactive/text/post/share_chat/image
+    
+    # 消息模板
+    card_template: "feishu_card.json"
+
+# 存储配置
+storage:
+  # 数据目录
+  data_dir: "../data"
+  
+  # 数据库配置（可选）
+  database:
+    enabled: false
+    type: "sqlite"  # sqlite/mysql/postgresql
+    path: "../data/news.db"
+    
+  # 缓存配置
+  cache:
+    enabled: true
+    ttl: 3600  # 缓存有效期（秒）
+
+# 日志配置
+logging:
+  level: "INFO"  # DEBUG/INFO/WARNING/ERROR/CRITICAL
+  file: "../logs/satellite-news.log"
+  max_size: 10485760  # 10MB
+  backup_count: 5
+  
+  # 控制台输出
+  console: true
+
+# 监控配置
+monitoring:
+  # 健康检查
+  health_check:
+    enabled: true
+    interval: 300  # 每5分钟检查一次
+    
+  # 错误报警
+  alert:
+    enabled: false
+    email: "your-email@example.com"
+    webhook: "YOUR_WEBHOOK_URL"
+
+# 定时任务配置
+scheduler:
+  # 每日抓取时间（24小时制）
+  daily_fetch_time: "09:00"
+  
+  # 每周摘要时间
+  weekly_summary:
+    enabled: true
+    day_of_week: "monday"  # monday/tuesday/wednesday/thursday/friday/saturday/sunday
+    time: "10:00"

@@ -1,5 +1,9 @@
 # Core dependencies (必需)
 requests>=2.25.0
+beautifulsoup4>=4.12.0
+
+# Weekly pipeline directions.yaml (run_geoscience_ai_weekly / suggest_direction_indices)
+pyyaml>=6.0
 
 # Syntax highlighting (可选，但强烈推荐)
 # 用于代码块的语法高亮
